@@ -4,14 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "item")
 @Getter
 @Setter
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
+@Table(name = "item")
+@Entity
+public abstract class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,10 +20,16 @@ public class Item {
     private int price;
     private int stockQuantity;
 
-    @OneToMany(mappedBy = "item")
-    private List<OrderItem> orderItems;
+    @ManyToOne
+    @JoinColumn(name = "order_item_id", referencedColumnName = "id")
+    private OrderItem orderItem;
 
-    public void addOrderItem(OrderItem orderItem) {
-        orderItem.setItem(this);
+    public void setOrderItem(OrderItem orderItem) {
+        if (Objects.nonNull(this.orderItem)) {
+            this.orderItem.getItems().remove(this);
+        }
+
+        this.orderItem = orderItem;
+        orderItem.getItems().add(this);
     }
 }

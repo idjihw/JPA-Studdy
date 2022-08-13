@@ -26,7 +26,7 @@ public class PersistenceContextTest {
     }
 
     @Test
-    void 저장() {
+    void save() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -42,7 +42,7 @@ public class PersistenceContextTest {
     }
 
     @Test
-    void 조회_DB조회() {
+    void DB_vali() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -63,7 +63,7 @@ public class PersistenceContextTest {
     }
 
     @Test
-    void 조회_1차캐시_이용() {
+    void cash_vali() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -82,7 +82,7 @@ public class PersistenceContextTest {
     }
 
     @Test
-    void 수정() {
+    void change() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -104,7 +104,7 @@ public class PersistenceContextTest {
     }
 
     @Test
-    void 삭제() {
+    void delete() {
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
